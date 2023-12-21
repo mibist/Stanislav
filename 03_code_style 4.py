@@ -113,13 +113,13 @@ MyFavoritePetsAndBirds = ['cat', 'wolf', 'ostrich']
 #   x y z - для координат
 
 # никогда не используйте в названиях переменных одиночные l, I, O  !
-l = 34
-I = 43
-if l > I:
-    print()
-O = 9
-if O > 0:
-    print()
+x = 34
+y = 43
+if x > y:
+    print('x > y')
+z = 9
+if z > 0:
+    print('z > 0')
 
 # lowercase (слово в нижнем регистре)
 # lower_case_with_underscores (слова из маленьких букв с подчеркиваниями)
