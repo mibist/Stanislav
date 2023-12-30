@@ -9,5 +9,5 @@ def factorial(n):
     return n * factorial_recursive
 
 test_params(10, 'строка', True, 3.14)
-result = factorial(9)
-print(f'Факториал числа 5: {result}')
+res = factorial(9)
+print(f'Факториал числа 5: {res}')
