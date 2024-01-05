@@ -1,13 +1,4 @@
-def test_params(*args):
-    for arg in args:
-        print(arg)
+import mod4_dz1
 
-def factorial(n):
-    if n == 1:
-        return 1
-    factorial_recursive = factorial(n=n-1)
-    return n * factorial_recursive
-
-test_params(10, 'строка', True, 3.14)
-res = factorial(9)
-print(f'Факториал числа 5: {res}')
+mod4_dz1.say_hello()
+mod4_dz1.say_hello2()
