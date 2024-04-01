@@ -2,6 +2,8 @@ import threading
 import time
 import queue
 
+my_lock = threading.Lock()  #вводим блокировку потоков для красивого выводо в консоль заменяя f"\n"
+
 class Table:
     def __init__(self, number):
         self.number = number
@@ -14,7 +16,7 @@ class Cafe:
 
     def customer_arrival(self):
         for i in range(1, 21):  # 20 посетителей
-            print(f"\nПосетитель номер {i} прибыл")
+            print(f"Посетитель номер {i} прибыл")
             customer = Customer(i, self)
             customer.start()
             time.sleep(1)
@@ -28,14 +30,16 @@ class Cafe:
             for table in self.tables:
                 if not table.is_busy:
                     table.is_busy = True
-                    print(f"\nПосетитель номер {customer.customer_number} сел за стол {table.number}. (начало обслуживания)")
-                    time.sleep(5)
-                    print(f"Посетитель номер {customer.customer_number} покушал и ушёл. (конец обслуживания)")
-                    table.is_busy = False
-                    return
-            print(f"\nПосетитель номер {customer.customer_number} ожидает свободный стол. (помещение в очередь)")
-            self.queue.put(customer)
-            time.sleep(1)
+                    with my_lock:
+                        print(f"Посетитель номер {customer.customer_number} сел за стол {table.number}. (начало обслуживания)")
+                        time.sleep(5)
+                        print(f"Посетитель номер {customer.customer_number} покушал и ушёл. (конец обслуживания)")
+                        table.is_busy = False
+                        return
+            with my_lock:
+                print(f"Посетитель номер {customer.customer_number} ожидает свободный стол. (помещение в очередь)")
+                self.queue.put(customer)
+                time.sleep(1)
 
 class Customer(threading.Thread):
     def __init__(self, customer_number, cafe):
